@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-//import { MapPin, Phone, Mail, Clock, Send, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 import { MapPin, Phone, Mail, Clock, Send, Facebook, Youtube } from 'lucide-react';
 import { FaXTwitter, FaTiktok } from "react-icons/fa6";
 import { Button } from '@/components/ui/button';
@@ -10,14 +9,15 @@ import { useToast } from '@/hooks/use-toast';
 const Contact = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
+    subject: 'Request Prayer',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,16 +41,31 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you soon.",
-    });
-    
-    setFormData({ name: '', email: '', phone: '', message: '' });
-    setIsSubmitting(false);
+    try {
+      // Using 'no-cors' for Google Apps Script compatibility
+      await fetch('https://script.google.com/macros/s/AKfycbwPlMHh8Xk1uHSDiNVcWMVfFX23uT9w2O3a0ZmKNsccMqF-DbWJz0EeStxX0iYuy4vq/exec', {
+        method: 'POST',
+        mode: 'no-cors', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out to St. James MBC. We'll be in touch soon.",
+      });
+
+      // Clear the form
+      setFormData({ name: '', email: '', phone: '', subject: 'Request Prayer', message: '' });
+    } catch (error) {
+      toast({
+        title: "Submission Error",
+        description: "We couldn't connect to the server. Please check your connection.",
+//        variant: "destructive", // This makes the toast red
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -64,7 +79,7 @@ const Contact = () => {
       icon: Phone,
       title: 'Call Us',
       content: '(479) 782-5756',
-      subContent: 'Mon-Fri 9AM-5PM',
+      subContent: 'Mon-Fri 10:00 AM-3:30 PM',
     },
     {
       icon: Mail,
@@ -82,8 +97,7 @@ const Contact = () => {
 
   const socialLinks = [
     { icon: Facebook, href: 'https://www.facebook.com/saintjamesmbcfs', label: 'Facebook' },
-    { icon: FaXTwitter, href: 'https://twitter.com/SJMBC_FortSmith', label: 'X formorly Twitter' },
-  //  { icon: Instagram, href: 'https://www.instagram.com/sjmbc_fs', label: 'Instagram' },
+    { icon: FaXTwitter, href: 'https://twitter.com/SJMBC_FortSmith', label: 'X' },
     { icon: FaTiktok, href: 'https://www.tiktok.com/@sjmbcfs', label: 'TikTok' },
     { icon: Youtube, href: 'https://www.youtube.com/channel/UCXV4-JaH-ilFqo1zgFhl87Q', label: 'YouTube' },
   ];
@@ -178,34 +192,32 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Donation */}
+{/* Donate Links */}
             <div className="mt-8 pt-8 border-t border-gray-100">
               <h3 className="font-display font-semibold text-navy mb-4">Donate</h3>
               <div className="flex gap-3">
+
+              {/* Givelify Button */}
               <button 
                 onClick={() => window.open('https://www.givelify.com/donate/st-james-missionary-baptist-church-fort-smith-ar-2j7wy5Mzc2Ng==/donation/amount', '_blank')}
                 className="w-24 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
               >
-                <img 
-                  src="./Givlify-P.png" 
-                  alt="Givlify" 
-                  className="w-6 h-6 mr-2 object-contain" 
-                />
+                <img src="./Givlify-P.png" alt="Givlify" className="w-6 h-6 mr-2 object-contain" />
                 Givlify
               </button>
+
+              {/* PayPal Button */}
               <button 
-                onClick={() => window.open('https://www.paypal.com/donate?token=IZvxDneDKqfT8TYr4--ZluNYjSIa9lVPg93pTSJ_jgA95vg_64h64PElvl75I-OLnexJEg2DPugndsns', '_blank')}
+                onClick={() => window.open('https://www.paypal.com/donate?token=NcNn0bHpNdRps6iW-auJ7Q3fN2KJ8XONamjg8K8_m7KPUROsPnETy_FqZLX1ICo8vf4yJXzUdsAiuLN4', '_blank')}
                 className="w-24 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
               >
-                <img 
-                  src="./PayPal-P.png" 
-                  alt="PayPal" 
-                  className="w-6 h-6 mr-2 object-contain" 
-                />
+                <img src="./PayPal-P.png" alt="PayPal" className="w-6 h-6 mr-2 object-contain" />
                 PayPal
               </button>
+
               </div>
             </div>
+
           </div>
 
           {/* Contact Form Side */}
@@ -232,7 +244,8 @@ const Contact = () => {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       required
-                      className="bg-white border-gray-200 focus:border-primary focus:ring-primary"
+                      autoComplete="off"
+                      className="!bg-white text-navy border-gray-200 focus:border-primary focus:ring-primary"
                     />
                   </div>
                   <div>
@@ -245,7 +258,8 @@ const Contact = () => {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       required
-                      className="bg-white border-gray-200 focus:border-primary focus:ring-primary"
+                      autoComplete="off"
+                      className="!bg-white text-navy border-gray-200 focus:border-primary focus:ring-primary"
                     />
                   </div>
                 </div>
@@ -259,8 +273,25 @@ const Contact = () => {
                     placeholder="(479) 000-0000"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="bg-white border-gray-200 focus:border-primary focus:ring-primary"
+                    autoComplete="off"
+                    className="!bg-white text-navy border-gray-200 focus:border-primary focus:ring-primary"
                   />
+                </div>
+
+                <div>
+                  <label className="block font-body text-sm font-medium text-navy mb-2">
+                    Subject
+                  </label>
+                  <select
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    className="w-full !bg-white text-navy border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-navy"
+                  >
+                    <option value="Pastor's Desk">Pastor's Desk</option>
+                    <option value="Request Prayer">Request Prayer</option>
+                    <option value="Event">Event</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
 
                 <div>
@@ -273,7 +304,7 @@ const Contact = () => {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
                     rows={5}
-                    className="bg-white border-gray-200 focus:border-primary focus:ring-primary resize-none"
+                    className="!bg-white text-navy border-gray-200 focus:border-primary focus:ring-primary resize-none"
                   />
                 </div>
 

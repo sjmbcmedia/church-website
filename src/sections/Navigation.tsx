@@ -38,6 +38,7 @@ import logoColor from '../assets/logo-color.png';
         { name: 'Community Care', href: '#ministries' },
       ]
     },
+    {name: 'Leadership', href: '#pastor'},
     { name: 'Watch', href: '#watch' },
     { name: 'Contact', href: '#contact' },
   ];

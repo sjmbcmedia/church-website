@@ -22,8 +22,9 @@ const Hero = () => {
 
         // Fade out content on scroll
         const content = heroRef.current.querySelector('.hero-content');
+        const scrollOffset = 200;
         if (content) {
-          const opacity = Math.max(0, 1 - (scrollY / (heroHeight * 0.5)));
+          const opacity = Math.max(0, 1 - ((scrollY - scrollOffset) / (heroHeight * 0.2)));
           (content as HTMLElement).style.opacity = String(opacity);
         }
       }
@@ -102,29 +103,34 @@ const Hero = () => {
           </p>
 
           {/* CTAs */}
-          <div 
-            className={`flex flex-wrap gap-4 mb-12 transition-all duration-1000 ${
+<div 
+            className={`flex flex-col sm:flex-row gap-4 mb-12 transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`}
             style={{ transitionDelay: '800ms' }}
           >
+{/* Join Us Button - Line 98 */}
             <button 
               onClick={() => scrollToSection('#service-times')}
-              className="btn-primary group"
+              className="btn-primary group w-full sm:w-auto justify-center"
             >
               Join Us This Sunday
               <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
             </button>
+
+            {/* Watch Live Button - Line 105 */}
             <button 
               onClick={() => scrollToSection('#watch')}
-              className="btn-outline group"
+              className="btn-outline group w-full sm:w-auto justify-center"
             >
               <Play className="w-5 h-5 mr-2" />
               Watch Live
             </button>
+
+            {/* Request Prayer Button - Line 111 */}
             <button 
               onClick={() => scrollToSection('#contact')}
-              className="btn-outline group"
+              className="btn-outline group w-full sm:w-auto justify-center"
             >
               <FaPrayingHands className="w-5 h-5 mr-2" />
               Request Prayer

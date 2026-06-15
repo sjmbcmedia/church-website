@@ -51,7 +51,7 @@ const Pastor = () => {
 
             {/* Headline */}
             <h2 
-              className={`heading-lg text-navy mb-4 transition-all duration-700 ${
+              className={`heading-lg text-navy mb-2 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{ transitionDelay: '100ms' }}
@@ -140,11 +140,11 @@ const Pastor = () => {
             <div className="relative">
               {/* Main Image */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img 
-                  src="/pastor-image-IV-90.png" 
-                  alt="Pastor Judge Green, IV" 
-                  className="w-full h-[600px] object-cover"
-                />
+<img 
+  src="/pastor-image-IV-90.png" 
+  alt="Pastor Judge Green, IV" 
+  className="w-full h-[600px] lg:h-[600px] object-contain object-top pt-0"
+/>
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent" />
               </div>
 

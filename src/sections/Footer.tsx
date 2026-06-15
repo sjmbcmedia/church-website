@@ -9,6 +9,7 @@ import logoColor from '../assets/logo-color.png';
     { name: 'Home', href: '#home' },
     { name: 'About Us', href: '#about' },
     { name: 'Ministries', href: '#ministries' },
+    { name: 'Leadership', href: '#pastor' },
     { name: 'Watch Live', href: '#watch' },
     { name: 'Contact', href: '#contact' },
   ];

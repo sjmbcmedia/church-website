@@ -26,7 +26,7 @@ interface YouTubeVideo {
   const [isLoading, setIsLoading] = useState(true);
   const CHANNEL_ID = 'UCXV4-JaH-ilFqo1zgFhl87Q';
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;  
-  
+
   {/* END LIVE YT CODE */}
   useEffect(() => {
   {/* LIVE YT CODE */}

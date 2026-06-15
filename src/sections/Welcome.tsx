@@ -65,7 +65,7 @@ const Welcome = () => {
               {/* Main Image */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img 
-                  src="/welcome-image.jpg" 
+                  src="/welcome-image-sj.jpg" 
                   alt="Church community" 
                   className="w-full h-[500px] object-cover"
                 />
@@ -109,19 +109,24 @@ const Welcome = () => {
             </div>
 
             {/* Headline */}
-            <h2 
-              className={`heading-lg text-navy mb-4 transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: '300ms' }}
-            >
-              Welcome to
-              <span className="block text-primary">St. James MBC</span>
-            </h2>
+<h2
+  className={`heading-lg text-navy mb-4 transition-all duration-700 leading-[0.9] ${
+    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+  }`}
+  style={{ transitionDelay: '300ms' }}
+>
+  Welcome to
+  <span className="block text-primary mt-1.5">Saint James</span>
+  <span className="block text-[0.5em] tracking-widest text-primary mt-1.5">
+    <span className="text-[1.12em]">M</span>issionary{" "}
+    <span className="text-[1.12em]">B</span>aptist{" "}
+    <span className="text-[1.12em]">C</span>hurch
+  </span>
+</h2>
 
             {/* Script Accent */}
             <p 
-              className={`font-script text-3xl text-gold mb-6 transition-all duration-700 ${
+              className={`font-script text-3xl text-gold mt-6 mb-6 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{ transitionDelay: '400ms' }}
