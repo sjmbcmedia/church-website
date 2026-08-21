@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Play, Clock, MapPin, ChevronRight } from 'lucide-react';
-import { FaPrayingHands } from 'react-icons/fa';
+import { FaDollarSign, FaPrayingHands } from 'react-icons/fa';
 
-const Hero = () => {
+interface HeroProps {
+  hasRecentVideo?: boolean;
+}
+
+const Hero = ({ hasRecentVideo = false }: HeroProps) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -68,26 +72,22 @@ const Hero = () => {
       {/* Content */}
       <div className="hero-content relative z-10 w-full section-padding pt-32 pb-20">
         <div className="max-w-4xl">
-          {/* Badge */}
-          <div 
-            className={`inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-8 transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-            style={{ transitionDelay: '200ms' }}
-          >
-            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-white/90 font-body text-sm">Join us every Sunday</span>
+          <div style={{ display: 'inline-flex', alignItems: 'center', height: '24px' }}>
+            <img 
+              src="/logo-white.png" 
+              alt="Saint James MBC Logo" 
+              style={{ height: '650%', width: 'auto', marginTop: "50px", objectFit: 'contain' }} 
+            />
           </div>
 
           {/* Main Headline */}
           <h1 
-            className={`heading-xl text-white mb-6 transition-all duration-1000 ${
+            className={`text-[25px] font-bold text-white mb-4 transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`}
             style={{ transitionDelay: '400ms' }}
           >
             <span className="block">Christ Centered,</span>
-            {/* <span className="block text-primary-light">|</span> */}
             <span className="block">Community Focused</span>
           </h1>
 
@@ -103,13 +103,13 @@ const Hero = () => {
           </p>
 
           {/* CTAs */}
-<div 
+          <div 
             className={`flex flex-col sm:flex-row gap-4 mb-12 transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`}
             style={{ transitionDelay: '800ms' }}
           >
-{/* Join Us Button - Line 98 */}
+            {/* Join Us Button */}
             <button 
               onClick={() => scrollToSection('#service-times')}
               className="btn-primary group w-full sm:w-auto justify-center"
@@ -118,22 +118,39 @@ const Hero = () => {
               <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
             </button>
 
-            {/* Watch Live Button - Line 105 */}
-            <button 
-              onClick={() => scrollToSection('#watch')}
-              className="btn-outline group w-full sm:w-auto justify-center"
-            >
-              <Play className="w-5 h-5 mr-2" />
-              Watch Live
-            </button>
+            {/* Watch Live Button with Dynamic Badge */}
+            <div className="relative w-full sm:w-auto">
+              <button 
+                onClick={() => scrollToSection('#watch')}
+                className="btn-outline group w-full sm:w-auto justify-center"
+              >
+                <Play className="w-5 h-5 mr-2" />
+                Watch Live
+              </button>
 
-            {/* Request Prayer Button - Line 111 */}
+              {hasRecentVideo && (
+                <div className="absolute -top-3 right-3 sm:-right-2 px-3 py-0.5 bg-gold text-navy text-xs font-body font-bold rounded-full shadow-lg z-20 animate-pulse pointer-events-none whitespace-nowrap">
+                  NEW VIDEO
+                </div>
+              )}
+            </div>
+
+            {/* Request Prayer Button */}
             <button 
               onClick={() => scrollToSection('#contact')}
               className="btn-outline group w-full sm:w-auto justify-center"
             >
               <FaPrayingHands className="w-5 h-5 mr-2" />
               Request Prayer
+            </button>
+
+            {/* Give/Donate */}
+            <button 
+              onClick={() => window.open('https://www.givelify.com/donate/st-james-missionary-baptist-church-fort-smith-ar-2j7wy5Mzc2Ng==/donation/amount', '_blank')}
+              className="btn-outline group w-full sm:w-auto justify-center"
+            >
+              <FaDollarSign className="w-5 h-5 mr-2" />
+              Give/Donate
             </button>
           </div>
 

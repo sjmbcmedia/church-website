@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { FaDollarSign } from 'react-icons/fa';
 
 const Contact = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -200,21 +201,21 @@ const Contact = () => {
               {/* Givelify Button */}
               <button 
                 onClick={() => window.open('https://www.givelify.com/donate/st-james-missionary-baptist-church-fort-smith-ar-2j7wy5Mzc2Ng==/donation/amount', '_blank')}
-                className="w-24 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
-              >
-                <img src="./Givlify-P.png" alt="Givlify" className="w-6 h-6 mr-2 object-contain" />
-                Givlify
+                className="w-40 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+              >              
+              <FaDollarSign className="w-5 h-5 mr-2" />
+              Give/Donate
               </button>
 
               {/* PayPal Button */}
-              <button 
+{/*              <button 
                 onClick={() => window.open('https://www.paypal.com/donate?token=NcNn0bHpNdRps6iW-auJ7Q3fN2KJ8XONamjg8K8_m7KPUROsPnETy_FqZLX1ICo8vf4yJXzUdsAiuLN4', '_blank')}
                 className="w-24 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
               >
                 <img src="./PayPal-P.png" alt="PayPal" className="w-6 h-6 mr-2 object-contain" />
                 PayPal
               </button>
-
+*/}
               </div>
             </div>
 

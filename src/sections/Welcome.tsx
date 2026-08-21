@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Heart, Users, BookOpen } from 'lucide-react';
 
-const Welcome = () => {
+  const Welcome = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -73,6 +73,7 @@ const Welcome = () => {
               </div>
 
               {/* Floating Card */}
+              {/* <a href="https://www.stjamesbc.org/church-history" target = '_blank' className="block hover:opacity-80 transition-opacity"> */}
               <div 
                 className={`absolute -bottom-8 -right-8 bg-white rounded-xl shadow-xl p-6 max-w-[200px] transition-all duration-1000 ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -89,6 +90,7 @@ const Welcome = () => {
                   </div>
                 </div>
               </div>
+              {/* </a> */}
 
               {/* Decorative Element */}
               <div className="absolute -top-4 -left-4 w-24 h-24 border-2 border-primary/20 rounded-xl -z-10" />
@@ -134,9 +136,9 @@ const Welcome = () => {
               A place to belong, a people who care
             </p>
 
-            {/* Description */}
+{/* Description */}
             <div 
-              className={`space-y-4 mb-8 transition-all duration-700 ${
+              className={`space-y-6 mb-8 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{ transitionDelay: '500ms' }}
@@ -145,12 +147,16 @@ const Welcome = () => {
                 We are a Christ-centered, community-focused church dedicated to sharing the love of Jesus Christ. 
                 Our mission is to edify and sanctify believers through the preaching of the Gospel and the power of worship.
               </p>
-              <p className="body-md text-text-gray">
-                Founded in 1893, Saint James Missionary Baptist Church has been a cornerstone of faith in Fort Smith, 
-                Arkansas for over 130 years. Through many dangers, toils, and snares, we have already come. 
-                Faith has brought us safe thus far, and faith shall lead us on. We are proud of our heritage 
-                and the legacy of faith passed down through generations of African-American believers.
-              </p>
+
+              {/* Floating Vision Statement Card */}
+              <div className="bg-purple-50 rounded-2xl p-6 shadow-xl text-center border border-purple-100 max-w-xl mx-auto transform hover:-translate-y-1 transition-transform duration-300">
+                <h3 className="font-display font-bold text-3xl text-purple-950 mb-3 underline underline-offset -5">
+                  Vision Statement
+                </h3>
+                <p className="body-md text-text-black">
+                  Saint James Missionary Baptist Church is a church that is committed to empowering, equipping, energizing and enlightening God's believer through the teaching and preaching of the infallible word of God.
+                </p>
+              </div>
             </div>
 
             {/* Features */}

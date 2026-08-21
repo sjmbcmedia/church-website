@@ -17,9 +17,8 @@ import logoColor from '../assets/logo-color.png';
   const ministries = [
     { name: 'Youth Ministry', href: '#ministries' },
     { name: 'Music & Arts', href: '#ministries' },
-    { name: 'Spiritual Formation', href: '#ministries' },
-    { name: 'Community Care', href: '#ministries' },
-    { name: 'International Outreach', href: '#ministries' },
+    { name: 'Christian Education', href: '#ministries' },
+    { name: 'Evangelism / Outreach', href: '#ministries' },
   ];
 
   const socialLinks = [

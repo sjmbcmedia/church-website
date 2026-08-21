@@ -1,61 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
-import {Loader2, Play, Youtube, ExternalLink, Radio } from 'lucide-react';
+import { Loader2, Play, Youtube, ExternalLink, Radio } from 'lucide-react';
+import type { YouTubeVideo } from '../App';
 
-interface YouTubeVideo {
-  id: {
-    videoId: string;
-  };
-  snippet: {
-    title: string;
-    channelTitle: string;
-    publishedAt: string;
-    thumbnails: {
-      high: {
-        url: string;
-      };
-    };
-  };
+interface WatchLiveProps {
+  videos: YouTubeVideo[];
+  liveVideoId: string | null;
+  isLoading: boolean;
 }
 
-  const WatchLive = () => {
+const CHANNEL_ID = 'UCXV4-JaH-ilFqo1zgFhl87Q';
+
+const WatchLive = ({ videos, liveVideoId, isLoading }: WatchLiveProps) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  {/* LIVE YT CODE */}
-  const [videos, setVideos] = useState<YouTubeVideo[]>([]);  const [liveVideoId, setLiveVideoId] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const CHANNEL_ID = 'UCXV4-JaH-ilFqo1zgFhl87Q';
-  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;  
 
-  {/* END LIVE YT CODE */}
   useEffect(() => {
-  {/* LIVE YT CODE */}
-  const fetchYouTubeData = async () => {
-    try {
-        // Search for a live stream
-        const liveRes = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&type=video&eventType=live&key=${API_KEY}`
-        );
-        const liveData = await liveRes.json();
-        if (liveData.items?.length > 0) {
-          setLiveVideoId(liveData.items[0].id.videoId);
-        }
-
-        // Fetch the 3 most recent videos
-        const videosRes = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&maxResults=3&order=date&type=video&key=${API_KEY}`
-        );
-        const videosData = await videosRes.json();
-        setVideos(videosData.items || []);
-      } catch (error) {
-        console.error("YouTube fetch error:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchYouTubeData();
-  {/* END LIVE YT CODE */}
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -73,7 +33,7 @@ interface YouTubeVideo {
     return () => observer.disconnect();
   }, []);
 
-   return (
+  return (
     <section 
       id="watch" 
       ref={sectionRef}
@@ -154,7 +114,6 @@ interface YouTubeVideo {
 
               {/* Play Button */}
               <div className="absolute inset-0 flex items-center justify-center">
-                {/* LIVE YT CODE */}
                 {liveVideoId ? (
                   <div className="absolute inset-0 flex items-center justify-center bg-black">
                     <iframe
@@ -180,11 +139,10 @@ interface YouTubeVideo {
                     }`} />
                   </a>
                 )}
-                {/* END LIVE YT CODE */}
               </div>
 
               {/* Service Info */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-navy to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-navy to-transparent pointer-events-none">
                 <p className="font-body text-white/70 text-sm mb-1">
                   {liveVideoId ? "Currently Broadcasting Live" : "Sundays at 10:45 AM CST"}
                 </p>
@@ -209,7 +167,7 @@ interface YouTubeVideo {
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-display font-semibold text-white text-xl">Recent Services</h3>
             <a 
-              href="https://www.youtube.com/channel/UCXV4-JaH-ilFqo1zgFhl87Q"
+              href={`https://www.youtube.com/channel/${CHANNEL_ID}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-primary font-body font-medium hover:underline"
@@ -233,7 +191,6 @@ interface YouTubeVideo {
                   rel="noopener noreferrer"
                   className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-colors"
                 >
-                  {/* ... the rest of the link content we added in Step 11 ... */}
                   <div className="flex items-start gap-3">
                     <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors">
                       <Youtube className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
@@ -266,7 +223,7 @@ interface YouTubeVideo {
           style={{ transitionDelay: '700ms' }}
         >
           <a 
-            href="https://www.youtube.com/channel/UCXV4-JaH-ilFqo1zgFhl87Q?sub_confirmation=1"
+            href={`https://www.youtube.com/channel/${CHANNEL_ID}?sub_confirmation=1`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-4 bg-red-600 text-white font-body font-semibold rounded-lg hover:bg-red-700 transition-colors"

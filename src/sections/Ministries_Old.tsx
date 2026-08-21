@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, GraduationCap, Music, BookOpen, Heart } from 'lucide-react';
+import { ArrowRight, GraduationCap, Music, BookOpen, Heart, /*Globe*/ } from 'lucide-react';
+{/* import { MapPin, Phone, Mail, Clock, Send, Facebook, Youtube } from 'lucide-react'; */}
 
 const Ministries = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-
-  // --- TEMPORARY DEV STATES FOR STYLING "LEARN MORE" LINKS ---
-  const [showDevTools, setShowDevTools] = useState(false);
-  const [customColor, setCustomColor] = useState('#3b82f6'); // Default primary / blue tint
-  const [customFontSize, setCustomFontSize] = useState('0.875rem'); // text-sm default
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -33,7 +29,7 @@ const Ministries = () => {
       title: 'Youth Ministry',
       description: 'Empowering youth to discover their purpose and grow in faith through dynamic programs and mentorship.',
       image: '/ministry-1-sj.jpg',
-      icon: GraduationCap,
+      icon:  GraduationCap,
       color: 'from-orange-500 to-red-500',
     },
     {
@@ -66,7 +62,7 @@ const Ministries = () => {
       className="relative py-24 lg:py-32 bg-primary-light overflow-hidden"
     >
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-30 pointer-events-none">
+      <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-0 w-full h-full" 
           style={{
             backgroundImage: `radial-gradient(circle at 20% 50%, rgba(0, 87, 184, 0.1) 0%, transparent 50%),
@@ -75,65 +71,7 @@ const Ministries = () => {
         />
       </div>
 
-      <div className="relative z-10 w-full section-padding max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* --- TEMPORARY DEV CONTROL TRIGGER --- */}
-        <div className="mb-6 flex justify-end">
-          <button
-            onClick={() => setShowDevTools(!showDevTools)}
-            className="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-lg shadow-md hover:bg-slate-800 transition-colors flex items-center gap-2 z-20 relative"
-          >
-            <span>⚙️</span> {showDevTools ? 'Close Link Customizer' : 'Dev: Style "Learn More" Links'}
-          </button>
-        </div>
-
-        {/* --- TEMPORARY ON-CLICK POPUP WINDOW --- */}
-        {showDevTools && (
-          <div className="mb-10 p-6 bg-white/95 backdrop-blur border border-blue-200 rounded-xl shadow-xl max-w-sm ml-auto flex flex-col gap-4 z-20 relative animate-fadeIn">
-            <div className="flex justify-between items-center border-b pb-2">
-              <h3 className="font-bold text-slate-900 text-sm">
-                Link Style Customizer
-              </h3>
-              <button 
-                onClick={() => setShowDevTools(false)}
-                className="text-slate-400 hover:text-slate-700 font-bold px-2 text-sm"
-              >
-                ✕
-              </button>
-            </div>
-            <p className="text-xs text-slate-600">
-              Test custom colors and font sizes for the card 'Learn More' links live.
-            </p>
-            
-            {/* Color Picker */}
-            <div className="flex items-center justify-between bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-              <label className="text-xs font-semibold text-slate-700">Link Color:</label>
-              <input
-                type="color"
-                value={customColor}
-                onChange={(e) => setCustomColor(e.target.value)}
-                className="w-8 h-8 rounded cursor-pointer border-0 bg-transparent"
-              />
-            </div>
-
-            {/* Font Sizer */}
-            <div className="flex items-center justify-between bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-              <label className="text-xs font-semibold text-slate-700">Font Size:</label>
-              <select
-                value={customFontSize}
-                onChange={(e) => setCustomFontSize(e.target.value)}
-                className="px-2.5 py-1 bg-white border border-slate-300 rounded-md text-xs text-slate-800 font-medium focus:outline-none"
-              >
-                <option value="0.75rem">Extra Small (12px)</option>
-                <option value="0.875rem">Small (14px - Default)</option>
-                <option value="1rem">Normal (16px)</option>
-                <option value="1.125rem">Medium (18px)</option>
-                <option value="1.25rem">Large (20px)</option>
-              </select>
-            </div>
-          </div>
-        )}
-
+      <div className="relative z-10 w-full section-padding">
         {/* Section Header */}
         <div className="text-center mb-16">
           <div 
@@ -199,7 +137,7 @@ const Ministries = () => {
                 <div className="absolute inset-0 p-6 flex flex-col justify-end">
                   {/* Icon */}
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${ministry.color} flex items-center justify-center mb-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500`}>
-                    <ministry.icon className="w-6 h-6 text-white" />
+                  <ministry.icon className="w-6 h-6 text-white" />
                   </div>
 
                   <h3 className="font-display font-semibold text-white text-xl mb-2">
@@ -210,18 +148,13 @@ const Ministries = () => {
                     {ministry.description}
                   </p>
 
-                  {/* --- LEARN MORE LINK WITH DYNAMIC DEV STYLING --- */}
                   <a 
                     href="#contact"
                     onClick={(e) => {
                       e.preventDefault();
                       document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    style={{
-                      color: customColor,
-                      fontSize: customFontSize,
-                    }}
-                    className="inline-flex items-center gap-2 font-body font-semibold opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:opacity-80"
+                    className="inline-flex items-center gap-2 text-primary font-body font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500"
                   >
                     Learn More
                     <ArrowRight className="w-4 h-4" />
@@ -229,7 +162,7 @@ const Ministries = () => {
                 </div>
 
                 {/* Border Glow on Hover */}
-                <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/50 transition-colors duration-500 pointer-events-none" />
+                <div className={`absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/50 transition-colors duration-500`} />
               </div>
             </div>
           ))}
